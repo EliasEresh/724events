@@ -11,14 +11,14 @@ const Slider = () => {
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
   const nextCard = () => {
-    setTimeout(
-      () => setIndex(index < byDateDesc.length ? index + 1 : 0),
-      5000
-    );
+    setIndex(index < (byDateDesc && byDateDesc.length - 1) ? index + 1 : 0); // mis le timeout dans useeffect et mis le setindex conditionné aux lenghts qui doivent exister
   };
   useEffect(() => {
-    nextCard();
-  });
+    const timeoutId = setTimeout(() => {
+      nextCard();
+    }, 5000);
+    return () => clearTimeout(timeoutId);
+  }, [nextCard]);
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
@@ -42,10 +42,11 @@ const Slider = () => {
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
                 <input
-                  key={`${event.id}`}
+                  key={`${byDateDesc[radioIdx].title}`}
                   type="radio"
                   name="radio-button"
-                  checked={idx === radioIdx}
+                  checked={radioIdx === index}
+                  onChange={() => setIndex(radioIdx)} // ajouté onchange et changé la key et le checked sur index
                 />
               ))}
             </div>
