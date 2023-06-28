@@ -22,7 +22,6 @@ const Slider = () => {
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        <>
           <div
             key={event.title}
             className={`SlideCard SlideCard--${
@@ -38,11 +37,12 @@ const Slider = () => {
               </div>
             </div>
           </div>
+        ))}
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
-              {byDateDesc.map((_, radioIdx) => (
+              {byDateDesc?.map((event, radioIdx) => ( // event au lieu d'underscore, cf ligne 45
                 <input
-                  key={`${byDateDesc[radioIdx].title}`}
+                  key={event.title} // changé la prop pour en avoir une unique car erreur dans la console quand plusieurs ("$.id")
                   type="radio"
                   name="radio-button"
                   checked={radioIdx === index}
@@ -51,9 +51,7 @@ const Slider = () => {
               ))}
             </div>
           </div>
-        </>
-      ))}
-    </div>
+    </div> // restructuré le html, lignes 40 et 25, pas deux fois "event" dans la même section
   );
 };
 

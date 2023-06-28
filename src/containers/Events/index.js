@@ -16,7 +16,7 @@ const EventList = () => {
   const filteredEvents = (
     (!type
       ? data?.events
-      : data?.events) || []
+      : data?.events.filter((event) => event.type === type)) || [] // nouveau filtrage: seulement si le type est une égalité stricte. Avant, les types n'étaient même pas filtrés
   ).filter((event, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
@@ -26,6 +26,8 @@ const EventList = () => {
     }
     return false;
   });
+  console.log("Filtered Events:", filteredEvents);
+
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);

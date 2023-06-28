@@ -16,6 +16,7 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
+        onSuccess(); // onSuccess n'était pas appelé, présent dans Home mais pas ici
       } catch (err) {
         setSending(false);
         onError(err);

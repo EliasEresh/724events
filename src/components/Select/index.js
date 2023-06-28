@@ -16,9 +16,9 @@ const Select = ({
   const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
   const changeValue = (newValue) => {
-    onChange();
+    onChange(newValue); // doit faire le changement lorsqu'il y a une nouvelle value car avant il n'y avait pas d'argument à cette fonction ("()")
     setValue(newValue);
-    setCollapsed(newValue);
+    setCollapsed(!collapsed); // inverse le précédent collapsed state pour cacher et/ou montrer quand le reste est montré et/ou caché
     console.log('newValue', newValue)
   };
   return (
