@@ -4,7 +4,7 @@ import Field, { FIELD_TYPES } from "../../components/Field";
 import Select from "../../components/Select";
 import Button, { BUTTON_TYPES } from "../../components/Button";
 
-const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 1000); })
+const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 500); }) // Diminué le temps du timeout
 
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false);
@@ -15,8 +15,10 @@ const Form = ({ onSuccess, onError }) => {
       // We try to call mockContactApi
       try {
         await mockContactApi();
+        
         setSending(false);
-        onSuccess(); // onSuccess n'était pas appelé, présent dans Home mais pas ici
+        onSuccess();
+         // onSuccess n'était pas appelé, présent dans Home mais pas ici
       } catch (err) {
         setSending(false);
         onError(err);
